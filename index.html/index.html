@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Cưới - Mạnh Dũng & Ngọc Ánh</title>
+    
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Mountains+of+Christmas:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        script: ['"Great Vibes"', 'cursive'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                        xmas: ['"Mountains of Christmas"', 'cursive'],
+                    },
+                    colors: {
+                        'soft-pink': '#FFF0F5',
+                        'deep-rose': '#9F1239',
+                        'rose-gold': '#E11D48',
+                        'gold': '#D4AF37',
+                        'xmas-red': '#C41E3A',
+                        'xmas-green': '#165B33'
+                    },
+                    animation: {
+                        'scroll-up': 'scrollUp 60s linear infinite',
+                        'scroll-down': 'scrollDown 60s linear infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 4s linear infinite',
+                        'climb-side': 'climbSide 3s ease-in-out infinite alternate', 
+                        'crawl-top': 'crawlTop 4s linear infinite alternate',
+                        'swing-hang': 'swingHang 2s ease-in-out infinite',
+                        'peek-aboo': 'peekAboo 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        scrollUp: {
+                            '0%': { transform: 'translateY(0)' },
+                            '100%': { transform: 'translateY(-50%)' },
+                        },
+                        scrollDown: {
+                            '0%': { transform: 'translateY(-50%)' },
+                            '100%': { transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        climbSide: {
+                            '0%': { transform: 'translateY(20px) rotate(-10deg)' },
+                            '100%': { transform: 'translateY(-20px) rotate(10deg)' }
+                        },
+                        crawlTop: {
+                            '0%': { transform: 'translateX(-100%) rotate(0deg)' },
+                            '20%': { transform: 'translateX(-100%) rotate(-5deg)' }, 
+                            '80%': { transform: 'translateX(100%) rotate(5deg)' },
+                            '100%': { transform: 'translateX(100%) rotate(0deg)' }
+                        },
+                        swingHang: {
+                            '0%, 100%': { transform: 'rotate(15deg)' },
+                            '50%': { transform: 'rotate(-15deg)' }
+                        },
+                        peekAboo: {
+                            '0%, 80%': { transform: 'translateY(0)' },
+                            '40%, 60%': { transform: 'translateY(-25px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .falling-item {
+            position: fixed;
+            top: -10vh;
+            z-index: 50;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #FFF0F5; }
+        ::-webkit-scrollbar-thumb { background: #E11D48; border-radius: 3px; }
+        
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .flip-card-front img { transition: transform 10s ease; }
+        .flip-card:hover .flip-card-front img { transform: scale(1.2); }
+        .flip-card-back {
+            background: linear-gradient(135deg, #FFF0F5 0%, #ffe4e6 100%);
+            color: #9F1239;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fecdd3;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
