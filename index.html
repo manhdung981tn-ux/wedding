@@ -4,8 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thiệp Cưới - Mạnh Dũng & Ngọc Ánh</title>
     
+    <!-- SEO & Social Sharing Tags -->
+    <title>Thiệp Cưới - Mạnh Dũng & Ngọc Ánh</title>
+    <meta property="og:title" content="Lễ Thành Hôn - Mạnh Dũng & Ngọc Ánh">
+    <meta property="og:description" content="Trân trọng kính mời bạn tới tham dự lễ cưới của chúng tôi.">
+    <meta property="og:image" content="https://lh3.googleusercontent.com/pw/AP1GczNQ9UIYcTyyeFZicouMWTMrGpJGX0NgIPuvbsfYdY4-oDFEth6EXoaTieNGQeAPUbeC6dywIDjK68ZiAAXbQwa6YPvF7bf7QNoUkmLKNTDRgomMvFgdlW_1RygZ4qhgoLtIKd0pek4ELg1t_R-ZDtM=w1430-h953-s-no-gm?authuser=0">
+    <meta property="og:image:width" content="1430">
+    <meta property="og:image:height" content="953">
+    <meta property="og:type" content="website">
+
     <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- GOOGLE FONTS -->
@@ -1215,6 +1223,7 @@
           const [copied, setCopied] = useState(null);
 
           useEffect(() => {
+            // Get the current URL without query parameters to avoid including ?mode=admin in generated links
             const url = window.location.origin + window.location.pathname;
             setBaseUrl(url);
           }, []);
@@ -1253,7 +1262,7 @@
                 link += `&song=${encodeURIComponent(musicParam)}`;
             }
             
-            // Construct the formatted message
+            // Construct the formatted message with specific name ordering
             const isBride = type === 'bride';
             const eventTitle = isBride 
                 ? "💍 Lễ Vu Quy - Ngọc Ánh & Mạnh Dũng 💍" 
@@ -1392,6 +1401,7 @@
           const [side, setSide] = useState(null);
           const [guestName, setGuestName] = useState(null);
           const [musicUrl, setMusicUrl] = useState('');
+          const [isAdmin, setIsAdmin] = useState(false);
 
           useEffect(() => {
             const params = new URLSearchParams(window.location.search);
@@ -1399,7 +1409,9 @@
             const sideParam = params.get('side');
             const nameParam = params.get('name');
             const songParam = params.get('song');
+            const modeParam = params.get('mode'); // Check for admin mode
 
+            // Logic for Browser Tab Title
             if (sideParam === 'groom') {
               setSide('groom');
               document.title = "Lễ Thành Hôn - Mạnh Dũng & Ngọc Ánh";
@@ -1416,6 +1428,11 @@
 
             if (songParam) {
                 setMusicUrl(songParam);
+            }
+
+            // Only show Invitation Control tool if ?mode=admin
+            if (modeParam === 'admin') {
+                setIsAdmin(true);
             }
           }, []);
 
@@ -1436,7 +1453,10 @@
               <LuckyDraw />
               <BankQR side={side} />
               <Wishes side={side} />
-              <InvitationControl onMusicChange={handleMusicChange} />
+              
+              {/* Only render invitation control if in admin mode */}
+              {isAdmin && <InvitationControl onMusicChange={handleMusicChange} />}
+              
               <Footer />
             </div>
           );
@@ -1449,3 +1469,4 @@
     </script>
 </body>
 </html>
+    
