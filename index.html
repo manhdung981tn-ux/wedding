@@ -413,7 +413,8 @@
                     <i className={`fas ${isPlaying ? 'fa-pause' : 'fa-music'}`}></i>
                 </button>
                 <audio ref={audioRef} loop>
-                    <source src={musicUrl || "./wedding-song.mp3"} type="audio/mpeg" />
+                    {/* FILE NHẠC: Hãy để file nhạc tên là 'wedding-song.mp3' vào cùng thư mục với file index.html */}
+                    <source src="./wedding-song.mp3" type="audio/mpeg" />
                 </audio>
             </div>
           );
@@ -1239,8 +1240,10 @@
 
           const copyLink = (type) => {
             let link = `${baseUrl}?side=${type}`;
-            if (guestName.trim()) {
-                link += `&name=${encodeURIComponent(guestName.trim())}`;
+            const cleanName = guestName.trim();
+            
+            if (cleanName) {
+                link += `&name=${encodeURIComponent(cleanName)}`;
             }
             
             const musicParam = selectedMusic === 'custom' ? customMusicUrl : selectedMusic;
@@ -1248,7 +1251,19 @@
                 link += `&song=${encodeURIComponent(musicParam)}`;
             }
             
-            navigator.clipboard.writeText(link).then(() => {
+            // Construct the formatted message
+            const isBride = type === 'bride';
+            const eventTitle = isBride 
+                ? "💍 Lễ Vu Quy - Ngọc Ánh & Mạnh Dũng 💍" 
+                : "💍 Lễ Thành Hôn - Mạnh Dũng & Ngọc Ánh 💍";
+            
+            const greeting = cleanName 
+                ? `Trân trọng kính mời ${cleanName}` 
+                : "Trân trọng kính mời bạn";
+
+            const fullMessage = `${eventTitle}\n\n${greeting} tới tham dự buổi tiệc chung vui cùng gia đình chúng tôi.\n\n💌 Xem thiệp mời tại: ${link}`;
+
+            navigator.clipboard.writeText(fullMessage).then(() => {
               setCopied(type);
               setTimeout(() => setCopied(null), 2000);
             }).catch(err => console.error('Failed to copy', err));
@@ -1274,6 +1289,9 @@
                             placeholder="VD: Bạn Nam, Cô Tư, Gia đình bác Hùng..."
                             className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 rounded focus:outline-none focus:border-deep-rose transition text-gray-700"
                         />
+                        <p className="text-[10px] text-gray-400 mt-2 text-left italic">
+                            * Tên khách sẽ hiện ở đầu trang web và trong nội dung tin nhắn copy.
+                        </p>
                     </div>
 
                     {/* Music Settings */}
@@ -1330,7 +1348,7 @@
                     <div className="text-left">
                       <span className="block text-sm text-gray-600 font-bold uppercase">Link Nhà Trai</span>
                       <span className="block text-xs text-blue-500 font-medium mt-1">
-                        {copied === 'groom' ? 'Đã sao chép! ✅' : 'Sao chép link'}
+                        {copied === 'groom' ? 'Đã sao chép! ✅' : 'Sao chép nội dung'}
                       </span>
                     </div>
                   </button>
@@ -1346,7 +1364,7 @@
                     <div className="text-left">
                       <span className="block text-sm text-gray-600 font-bold uppercase">Link Nhà Gái</span>
                        <span className="block text-xs text-pink-500 font-medium mt-1">
-                        {copied === 'bride' ? 'Đã sao chép! ✅' : 'Sao chép link'}
+                        {copied === 'bride' ? 'Đã sao chép! ✅' : 'Sao chép nội dung'}
                       </span>
                     </div>
                   </button>
