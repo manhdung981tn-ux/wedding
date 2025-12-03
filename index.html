@@ -398,7 +398,8 @@
                     <i className={`fas ${isPlaying ? 'fa-pause' : 'fa-music'}`}></i>
                 </button>
                 <audio ref={audioRef} loop>
-                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+                    {/* FILE NHẠC: Hãy để file nhạc tên là 'wedding-song.mp3' vào cùng thư mục với file index.html */}
+                    <source src="./wedding-song.mp3" type="audio/mpeg" />
                 </audio>
             </div>
           );
