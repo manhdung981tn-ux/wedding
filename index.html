@@ -1,11 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO & Social Sharing Tags -->
     <title>Thiệp Cưới - Mạnh Dũng & Ngọc Ánh</title>
     <meta property="og:title" content="Lễ Thành Hôn - Mạnh Dũng & Ngọc Ánh">
     <meta property="og:description" content="Trân trọng kính mời bạn tới tham dự lễ cưới của chúng tôi.">
@@ -14,18 +12,13 @@
     <meta property="og:image:height" content="953">
     <meta property="og:type" content="website">
 
-    <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Mountains+of+Christmas:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- REACT LIBRARIES (CDN) -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <!-- BABEL FOR JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <!-- TAILWIND CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -467,31 +460,31 @@
             <section className="relative h-screen overflow-hidden bg-rose-50 flex items-center justify-center">
               {/* Background Scrolling Wall */}
               <div className="absolute inset-0 grid grid-cols-3 md:grid-cols-5 gap-2 px-1 rotate-0 md:-rotate-2 scale-110 opacity-50 pointer-events-none select-none">
-                 <div className="flex flex-col gap-2 animate-scroll-up">
+                  <div className="flex flex-col gap-2 animate-scroll-up">
                     {[...col1, ...col1].map((src, i) => (
                         <img key={`c1-${i}`} src={src} className="rounded w-full h-48 object-cover odd:h-64 even:h-56" alt="" decoding="async" />
                     ))}
-                 </div>
-                 <div className="flex flex-col gap-2 animate-scroll-down mt-[-100px]">
+                  </div>
+                  <div className="flex flex-col gap-2 animate-scroll-down mt-[-100px]">
                     {[...col2, ...col2].map((src, i) => (
                         <img key={`c2-${i}`} src={src} className="rounded w-full h-80 object-cover odd:h-56 even:h-64" alt="" decoding="async" />
                     ))}
-                 </div>
-                 <div className="flex flex-col gap-2 animate-scroll-up">
+                  </div>
+                  <div className="flex flex-col gap-2 animate-scroll-up">
                     {[...col3, ...col3].map((src, i) => (
                         <img key={`c3-${i}`} src={src} className="rounded w-full h-64 object-cover odd:h-48 even:h-80" alt="" decoding="async" />
                     ))}
-                 </div>
-                 <div className="hidden md:flex flex-col gap-2 animate-scroll-down">
+                  </div>
+                  <div className="hidden md:flex flex-col gap-2 animate-scroll-down">
                     {[...col4, ...col4].map((src, i) => (
                         <img key={`c4-${i}`} src={src} className="rounded w-full h-72 object-cover odd:h-56" alt="" decoding="async" />
                     ))}
-                 </div>
-                 <div className="hidden lg:flex flex-col gap-2 animate-scroll-up mt-[-150px]">
-                     {[...col5, ...col5].map((src, i) => (
+                  </div>
+                  <div className="hidden lg:flex flex-col gap-2 animate-scroll-up mt-[-150px]">
+                      {[...col5, ...col5].map((src, i) => (
                         <img key={`c5-${i}`} src={src} className="rounded w-full h-64 object-cover odd:h-80" alt="" decoding="async" />
                     ))}
-                 </div>
+                  </div>
               </div>
 
               <div className="absolute inset-0 bg-gradient-to-t from-soft-pink via-soft-pink/90 to-transparent"></div>
@@ -734,17 +727,17 @@
                 </div>
 
                 {selectedImage && (
-                     <div className="fixed inset-0 z-[60] bg-white/95 backdrop-blur-md flex items-center justify-center p-4 cursor-zoom-out" onClick={closeLightbox}>
-                         <img 
+                      <div className="fixed inset-0 z-[60] bg-white/95 backdrop-blur-md flex items-center justify-center p-4 cursor-zoom-out" onClick={closeLightbox}>
+                          <img 
                             src={selectedImage} 
                             className="max-w-full max-h-[90vh] rounded shadow-2xl animate-[float_3s_ease-in-out_infinite] border-4 border-white" 
                             alt="Gallery Fullscreen"
                             onClick={(e) => e.stopPropagation()} 
-                         />
-                         <button className="absolute top-4 right-4 text-deep-rose text-4xl" onClick={closeLightbox}>
-                             &times;
-                         </button>
-                     </div>
+                          />
+                          <button className="absolute top-4 right-4 text-deep-rose text-4xl" onClick={closeLightbox}>
+                              ×
+                          </button>
+                      </div>
                 )}
             </section>
           );
@@ -766,7 +759,7 @@
             { icon: '💃', name: 'Nữ Hoàng Sàn Nhảy', desc: 'Nhạc lên là quẩy, bất chấp hình tượng.' },
             { icon: '🤳', name: 'Streamer Đám Cưới', desc: 'Livestream toàn bộ sự kiện cho cộng đồng mạng.' },
           ];
-        
+          
           const [currentRole, setCurrentRole] = useState(null);
           const [isSpinning, setIsSpinning] = useState(false);
           const intervalRef = useRef(null);
@@ -876,7 +869,7 @@
           const renderCard = (info, title, type) => (
             <div className={`bg-white rounded-2xl shadow-lg border border-rose-100 overflow-hidden transform hover:-translate-y-1 hover:shadow-xl transition duration-300 ${cardClass}`}>
                 <div className="bg-gradient-to-r from-soft-pink to-white p-4 border-b border-rose-50 text-center">
-                     <h4 className="font-serif text-2xl font-bold text-deep-rose">{title}</h4>
+                      <h4 className="font-serif text-2xl font-bold text-deep-rose">{title}</h4>
                 </div>
                 <div className="p-6 flex flex-col items-center">
                     <div className="w-48 h-48 md:w-56 md:h-56 bg-white p-2 rounded-lg border-2 border-dashed border-rose-200 mb-4 flex items-center justify-center overflow-hidden">
@@ -1016,8 +1009,8 @@
                 setTimeout(() => setShowExplosion(false), 2000);
 
                 setTimeout(() => {
-                     setSubmitted(false);
-                     form.reset();
+                      setSubmitted(false);
+                      form.reset();
                 }, 3000);
 
             } catch (error) {
@@ -1262,17 +1255,23 @@
                 link += `&song=${encodeURIComponent(musicParam)}`;
             }
             
-            // Construct the formatted message with specific name ordering
+            // XỬ LÝ NỘI DUNG TIN NHẮN (Đã sửa theo yêu cầu của bạn)
             const isBride = type === 'bride';
-            const eventTitle = isBride 
-                ? "💍 Lễ Vu Quy - Ngọc Ánh & Mạnh Dũng 💍" 
-                : "💍 Lễ Thành Hôn - Mạnh Dũng & Ngọc Ánh 💍";
             
+            // Tiêu đề tin nhắn chính xác như bạn yêu cầu
+            const messageHeader = isBride 
+                ? "Lễ Vu Quy (Nhà Gái)" 
+                : "Lễ Thành Hôn (Nhà Trai)";
+            
+            // Tên cặp đôi trong nội dung (nếu cần)
+            const coupleName = isBride ? "Ngọc Ánh & Mạnh Dũng" : "Mạnh Dũng & Ngọc Ánh";
+
             const greeting = cleanName 
                 ? `Trân trọng kính mời ${cleanName}` 
                 : "Trân trọng kính mời bạn";
 
-            const fullMessage = `${eventTitle}\n\n${greeting} tới tham dự buổi tiệc chung vui cùng gia đình chúng tôi.\n\n💌 Xem thiệp mời tại: ${link}`;
+            // Tạo nội dung tin nhắn hoàn chỉnh
+            const fullMessage = `${messageHeader}\n\n${greeting} tới tham dự buổi tiệc chung vui cùng gia đình chúng tôi (${coupleName}).\n\n💌 Xem thiệp mời tại: ${link}`;
 
             navigator.clipboard.writeText(fullMessage).then(() => {
               setCopied(type);
@@ -1366,12 +1365,12 @@
                     onClick={() => copyLink('bride')}
                     className="flex items-center justify-center gap-3 bg-white border-2 border-pink-100 p-4 rounded-xl shadow-sm hover:border-pink-300 hover:shadow-md transition active:scale-95 group"
                   >
-                     <div className="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center text-pink-600 group-hover:bg-pink-100 transition">
+                      <div className="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center text-pink-600 group-hover:bg-pink-100 transition">
                       <i className="fas fa-female text-xl"></i>
                     </div>
                     <div className="text-left">
                       <span className="block text-sm text-gray-600 font-bold uppercase">Link Nhà Gái</span>
-                       <span className="block text-xs text-pink-500 font-medium mt-1">
+                        <span className="block text-xs text-pink-500 font-medium mt-1">
                         {copied === 'bride' ? 'Đã sao chép! ✅' : 'Sao chép nội dung'}
                       </span>
                     </div>
@@ -1411,7 +1410,7 @@
             const songParam = params.get('song');
             const modeParam = params.get('mode'); // Check for admin mode
 
-            // Logic for Browser Tab Title
+            // Logic thay đổi tiêu đề Tab trình duyệt (Web Title)
             if (sideParam === 'groom') {
               setSide('groom');
               document.title = "Lễ Thành Hôn - Mạnh Dũng & Ngọc Ánh";
@@ -1469,4 +1468,3 @@
     </script>
 </body>
 </html>
-    
