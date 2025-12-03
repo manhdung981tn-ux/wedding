@@ -450,11 +450,15 @@
 
           const { col1, col2, col3, col4, col5 } = weddingData.heroImages;
           
-          // Logic for dynamic titles and name order
+          // --- LOGIC THAY ĐỔI THEO NHÀ TRAI / GÁI ---
           const isBrideSide = side === 'bride';
+          
           const eventTitle = isBrideSide ? "Đến dự lễ Vu Quy của" : "Đến dự lễ Thành Hôn của";
           const firstName = isBrideSide ? "Ngọc Ánh" : "Mạnh Dũng";
           const secondName = isBrideSide ? "Mạnh Dũng" : "Ngọc Ánh";
+          
+          // SỬA GIỜ Ở ĐÂY: Nếu là nhà gái thì 08h00, còn lại 10h00
+          const eventTime = isBrideSide ? "08h00" : "10h00"; 
 
           return (
             <section className="relative h-screen overflow-hidden bg-rose-50 flex items-center justify-center">
@@ -507,7 +511,8 @@
                 </h1>
                 
                 <p className="font-serif italic text-lg md:text-2xl mb-8 text-gray-600 font-light">
-                    <i className="fas fa-holly-berry text-xmas-red mr-2"></i> Vào lúc 10h00 - Ngày 21 tháng 12 <i className="fas fa-gifts text-xmas-green ml-2"></i>
+                    {/* ĐÃ CẬP NHẬT: Dùng biến {eventTime} thay vì số cứng */}
+                    <i className="fas fa-holly-berry text-xmas-red mr-2"></i> Vào lúc {eventTime} - Ngày 21 tháng 12 <i className="fas fa-gifts text-xmas-green ml-2"></i>
                 </p>
 
                 <div className="inline-block border-y border-deep-rose/20 py-3 px-8 bg-white/60 backdrop-blur-md rounded-full shadow-sm mb-8">
@@ -566,7 +571,6 @@
             </section>
           );
         };
-
         // 4. WeddingEvents
         const WeddingEvents = ({ side }) => {
           const { groom, bride } = weddingData.weddingEvents;
