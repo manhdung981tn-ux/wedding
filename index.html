@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -1219,23 +1220,23 @@
 
           const musicOptions = [
             { label: "Mặc định (wedding-song.mp3)", value: "" },
-            { label: "Beautiful In White", value: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" }, // Demo link
-            { label: "Perfect - Ed Sheeran", value: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" }, // Demo link
+            { label: "Beautiful In White", value: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" }, 
+            { label: "Perfect - Ed Sheeran", value: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" },
             { label: "Custom URL (Nhập bên dưới)", value: "custom" }
           ];
 
           const handleFileChange = (e) => {
             const file = e.target.files[0];
-            if (file) {
+            if (file && onMusicChange) {
                 const objectUrl = URL.createObjectURL(file);
-                onMusicChange(objectUrl); // Preview locally
+                onMusicChange(objectUrl); 
                 alert("Đã tải nhạc! Lưu ý: File này chỉ phát trên máy của bạn để nghe thử. Khi gửi link cho khách, hãy dùng 'Link nhạc Online'.");
             }
           };
 
           const handleApplyMusic = () => {
             const url = selectedMusic === 'custom' ? customMusicUrl : selectedMusic;
-            onMusicChange(url);
+            if (onMusicChange) onMusicChange(url);
           };
 
           const copyLink = (type) => {
@@ -1329,9 +1330,6 @@
                                     <input type="file" accept="audio/*" onChange={handleFileChange} className="hidden" />
                                 </label>
                             </div>
-                            <p className="text-[10px] text-left text-gray-400 italic">
-                                * Lưu ý: "Tải file từ máy" chỉ để bạn nghe thử. Để gửi link kèm nhạc cho khách, vui lòng chọn nhạc có sẵn hoặc dán Link URL.
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -1398,16 +1396,23 @@
             const params = new URLSearchParams(window.location.search);
             
             const sideParam = params.get('side');
-            if (sideParam === 'groom' || sideParam === 'bride') {
-              setSide(sideParam);
+            const nameParam = params.get('name');
+            const songParam = params.get('song');
+
+            if (sideParam === 'groom') {
+              setSide('groom');
+              document.title = "Lễ Thành Hôn - Mạnh Dũng & Ngọc Ánh";
+            } else if (sideParam === 'bride') {
+              setSide('bride');
+              document.title = "Lễ Vu Quy - Ngọc Ánh & Mạnh Dũng";
+            } else {
+              document.title = "Thiệp Cưới - Mạnh Dũng & Ngọc Ánh";
             }
 
-            const nameParam = params.get('name');
             if (nameParam) {
                 setGuestName(nameParam);
             }
 
-            const songParam = params.get('song');
             if (songParam) {
                 setMusicUrl(songParam);
             }
