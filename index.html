@@ -5,9 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thiệp Cưới - Mạnh Dũng & Ngọc Ánh</title>
-    <meta property="og:title" content="Lễ Thành Hôn - Mạnh Dũng & Ngọc Ánh">
-    <meta property="og:description" content="Trân trọng kính mời bạn tới dự lễ cưới của chúng tôi vào 10:00 - 21/12/2025.">
-    <meta property="og:image" content="https://lh3.googleusercontent.com/pw/AP1GczNQ9UIYcTyyeFZicouMWTMrGpJGX0NgIPuvbsfYdY4-oDFEth6EXoaTieNGQeAPUbeC6dywIDjK68ZiAAXbQwa6YPvF7bf7QNoUkmLKNTDRgomMvFgdlW_1RygZ4qhgoLtIKd0pek4ELg1t_R-ZDtM=w1430-h953-s-no-gm?authuser=0">
     
     <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -181,28 +178,28 @@
         const weddingData = {
             heroImages: {
                 col1: [
-                    "https://images.unsplash.com/photo-1511285560982-1351cdeb9821?w=400&q=80",
-                    "https://images.unsplash.com/photo-1519741497674-611481863552?w=400&q=80",
-                    "https://images.unsplash.com/photo-1621621667797-e06afc217fb0?w=400&q=80",
-                    "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=400&q=80",
+                    "https://images.unsplash.com/photo-1511285560982-1351cdeb9821?w=300&q=60&auto=format",
+                    "https://images.unsplash.com/photo-1519741497674-611481863552?w=300&q=60&auto=format",
+                    "https://images.unsplash.com/photo-1621621667797-e06afc217fb0?w=300&q=60&auto=format",
+                    "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=300&q=60&auto=format",
                 ],
                 col2: [
-                    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
-                    "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=400&q=80",
-                    "https://images.unsplash.com/photo-1522673607200-1645062ac2d4?w=400&q=80",
+                    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=60&auto=format",
+                    "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=300&q=60&auto=format",
+                    "https://images.unsplash.com/photo-1522673607200-1645062ac2d4?w=300&q=60&auto=format",
                 ],
                 col3: [
-                    "https://images.unsplash.com/photo-1595838788863-70d3c488819f?w=400&q=80",
-                    "https://images.unsplash.com/photo-1606800052052-a08af7148866?w=400&q=80",
-                    "https://images.unsplash.com/photo-1519225448526-0a029515560d?w=400&q=80",
+                    "https://images.unsplash.com/photo-1595838788863-70d3c488819f?w=300&q=60&auto=format",
+                    "https://images.unsplash.com/photo-1606800052052-a08af7148866?w=300&q=60&auto=format",
+                    "https://images.unsplash.com/photo-1519225448526-0a029515560d?w=300&q=60&auto=format",
                 ],
                 col4: [
-                    "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&q=80",
-                    "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=400&q=80",
+                    "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=300&q=60&auto=format",
+                    "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=300&q=60&auto=format",
                 ],
                 col5: [
-                    "https://images.unsplash.com/photo-1520854221256-17451cc330e7?w=400&q=80",
-                    "https://images.unsplash.com/photo-1511285560982-1351cdeb9821?w=400&q=80",
+                    "https://images.unsplash.com/photo-1520854221256-17451cc330e7?w=300&q=60&auto=format",
+                    "https://images.unsplash.com/photo-1511285560982-1351cdeb9821?w=300&q=60&auto=format",
                 ]
             },
             loveStory: {
@@ -451,8 +448,12 @@
           }, []);
 
           const { col1, col2, col3, col4, col5 } = weddingData.heroImages;
+          
+          // Logic for dynamic titles and name order
           const isBrideSide = side === 'bride';
           const eventTitle = isBrideSide ? "Đến dự lễ Vu Quy của" : "Đến dự lễ Thành Hôn của";
+          const firstName = isBrideSide ? "Ngọc Ánh" : "Mạnh Dũng";
+          const secondName = isBrideSide ? "Mạnh Dũng" : "Ngọc Ánh";
 
           return (
             <section className="relative h-screen overflow-hidden bg-rose-50 flex items-center justify-center">
@@ -501,7 +502,7 @@
                 </div>
                 
                 <h1 className="font-script text-6xl md:text-8xl lg:text-9xl mb-4 leading-none text-deep-rose drop-shadow-sm">
-                    Mạnh Dũng <br className="md:hidden" /> <span className="text-4xl md:text-6xl text-rose-300">&</span> <br className="md:hidden" /> Ngọc Ánh
+                    {firstName} <br className="md:hidden" /> <span className="text-4xl md:text-6xl text-rose-300">&</span> <br className="md:hidden" /> {secondName}
                 </h1>
                 
                 <p className="font-serif italic text-lg md:text-2xl mb-8 text-gray-600 font-light">
