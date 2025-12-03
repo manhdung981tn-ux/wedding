@@ -1247,42 +1247,48 @@
           };
 
           const copyLink = (type) => {
-            let link = `${baseUrl}?side=${type}`;
-            const cleanName = guestName.trim();
-            
-            if (cleanName) {
-                link += `&name=${encodeURIComponent(cleanName)}`;
-            }
-            
-            const musicParam = selectedMusic === 'custom' ? customMusicUrl : selectedMusic;
-            if (musicParam) {
-                link += `&song=${encodeURIComponent(musicParam)}`;
-            }
-            
-            // XỬ LÝ NỘI DUNG TIN NHẮN (Đã sửa theo yêu cầu của bạn)
-            const isBride = type === 'bride';
-            
-            // Tiêu đề tin nhắn chính xác như bạn yêu cầu
-            const messageHeader = isBride 
-                ? "Lễ Vu Quy (Nhà Gái)" 
-                : "Lễ Thành Hôn (Nhà Trai)";
-            
-            // Tên cặp đôi trong nội dung (nếu cần)
-            const coupleName = isBride ? "Ngọc Ánh & Mạnh Dũng" : "Mạnh Dũng & Ngọc Ánh";
+    // 1. Xác định đường dẫn file (nha-gai.html hoặc trang chủ)
+    let linkPath = type === 'bride' ? '/nha-gai.html' : '/';
+    let link = `${baseUrl}${linkPath}?side=${type}`;
+    
+    const cleanName = guestName.trim();
 
-            const greeting = cleanName 
-                ? `Trân trọng kính mời ${cleanName}` 
-                : "Trân trọng kính mời bạn";
+    // Thêm tham số tên khách vào link để web hiển thị lời chào
+    if (cleanName) {
+        link += `&name=${encodeURIComponent(cleanName)}`;
+    }
 
-            // Tạo nội dung tin nhắn hoàn chỉnh
-            const fullMessage = `${messageHeader}\n\n${greeting} tới tham dự buổi tiệc chung vui cùng gia đình chúng tôi (${coupleName}).\n\n💌 Xem thiệp mời tại: ${link}`;
+    const musicParam = selectedMusic === 'custom' ? customMusicUrl : selectedMusic;
+    if (musicParam) {
+        link += `&song=${encodeURIComponent(musicParam)}`;
+    }
 
-            navigator.clipboard.writeText(fullMessage).then(() => {
-              setCopied(type);
-              setTimeout(() => setCopied(null), 2000);
-            }).catch(err => console.error('Failed to copy', err));
-          };
+    // --- XỬ LÝ NỘI DUNG TIN NHẮN (SỬA ĐOẠN NÀY) ---
+    const isBride = type === 'bride';
 
+    // 2. Tiêu đề: Đổi theo từng nhà
+    const messageHeader = isBride
+        ? "💍 Lễ Vu Quy - Ngọc Ánh & Mạnh Dũng 💍"
+        : "💍 Lễ Thành Hôn - Mạnh Dũng & Ngọc Ánh 💍";
+
+    // 3. Thời gian: Đổi theo từng nhà
+    const timeString = isBride 
+        ? "08:00 - 21/12/2025"   // Giờ Nhà Gái
+        : "10:00 - 21/12/2025";  // Giờ Nhà Trai
+
+    // 4. Xử lý tên khách trong lời mời
+    // Nếu có nhập tên khách thì dùng tên đó, nếu không thì dùng "bạn"
+    const guestString = cleanName ? cleanName : "bạn";
+
+    // 5. Ghép thành tin nhắn hoàn chỉnh
+    const fullMessage = `${messageHeader}\n\nTrân trọng kính mời ${guestString} tới dự lễ cưới của chúng tôi vào ${timeString}.\n\n💌 Xem thiệp mời tại: ${link}`;
+
+    // Sao chép vào bộ nhớ tạm
+    navigator.clipboard.writeText(fullMessage).then(() => {
+        setCopied(type);
+        setTimeout(() => setCopied(null), 2000);
+    }).catch(err => console.error('Failed to copy', err));
+};
           return (
             <div className="bg-gray-100 py-8 px-4 border-t border-gray-200">
               <div className="max-w-2xl mx-auto text-center">
