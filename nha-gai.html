@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Lễ Vu Quy - Ngọc Ánh & Mạnh Dũng</title>
+    
     <meta property="og:title" content="Lễ Vu Quy - Ngọc Ánh & Mạnh Dũng">
     <meta property="og:description" content="Trân trọng kính mời bạn tới tham dự lễ cưới của chúng tôi vào lúc 09:00 - 21/12/2025.">
     
-    <meta property="og:image" content="CAP_4281.jpg"> 
+    <meta property="og:url" content="https://dahappywedding.site/nha-gai.html">
+
+    <meta property="og:image" content="https://dahappywedding.site/CAP_4281.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:type" content="website">
@@ -19,53 +22,20 @@
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        script: ['"Great Vibes"', 'cursive'],
-                        serif: ['"Playfair Display"', 'serif'],
-                        sans: ['"Montserrat"', 'sans-serif'],
-                        xmas: ['"Mountains of Christmas"', 'cursive'],
-                    },
-                    colors: {
-                        'soft-pink': '#FFF0F5',
-                        'deep-rose': '#9F1239',
-                        'rose-gold': '#E11D48',
-                        'gold': '#D4AF37',
-                        'xmas-red': '#C41E3A',
-                        'xmas-green': '#165B33'
-                    },
-                    animation: {
-                        'scroll-up': 'scrollUp 60s linear infinite',
-                        'scroll-down': 'scrollDown 60s linear infinite',
-                        'float': 'float 3s ease-in-out infinite',
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'spin-slow': 'spin 4s linear infinite',
-                        'climb-side': 'climbSide 3s ease-in-out infinite alternate', 
-                        'crawl-top': 'crawlTop 4s linear infinite alternate',
-                        'swing-hang': 'swingHang 2s ease-in-out infinite',
-                        'peek-aboo': 'peekAboo 3s ease-in-out infinite',
-                        'blob': 'blob 7s infinite',
-                    },
-                    keyframes: {
-                        scrollUp: { '0%': { transform: 'translateY(0)' }, '100%': { transform: 'translateY(-50%)' } },
-                        scrollDown: { '0%': { transform: 'translateY(-50%)' }, '100%': { transform: 'translateY(0)' } },
-                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
-                        climbSide: { '0%': { transform: 'translateY(20px) rotate(-10deg)' }, '100%': { transform: 'translateY(-20px) rotate(10deg)' } },
-                        crawlTop: { '0%': { transform: 'translateX(-100%) rotate(0deg)' }, '20%': { transform: 'translateX(-100%) rotate(-5deg)' }, '80%': { transform: 'translateX(100%) rotate(5deg)' }, '100%': { transform: 'translateX(100%) rotate(0deg)' } },
-                        swingHang: { '0%, 100%': { transform: 'rotate(15deg)' }, '50%': { transform: 'rotate(-15deg)' } },
-                        peekAboo: { '0%, 80%': { transform: 'translateY(0)' }, '40%, 60%': { transform: 'translateY(-25px)' } },
-                        blob: { '0%': { transform: 'translate(0px, 0px) scale(1)' }, '33%': { transform: 'translate(30px, -50px) scale(1.1)' }, '66%': { transform: 'translate(-20px, 20px) scale(0.9)' }, '100%': { transform: 'translate(0px, 0px) scale(1)' } }
-                    }
+                    fontFamily: { script: ['"Great Vibes"', 'cursive'], serif: ['"Playfair Display"', 'serif'], sans: ['"Montserrat"', 'sans-serif'], xmas: ['"Mountains of Christmas"', 'cursive'] },
+                    colors: { 'soft-pink': '#FFF0F5', 'deep-rose': '#9F1239', 'rose-gold': '#E11D48', 'gold': '#D4AF37', 'xmas-red': '#C41E3A', 'xmas-green': '#165B33' },
+                    animation: { 'scroll-up': 'scrollUp 60s linear infinite', 'scroll-down': 'scrollDown 60s linear infinite', 'float': 'float 3s ease-in-out infinite', 'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite', 'spin-slow': 'spin 4s linear infinite', 'climb-side': 'climbSide 3s ease-in-out infinite alternate', 'crawl-top': 'crawlTop 4s linear infinite alternate', 'swing-hang': 'swingHang 2s ease-in-out infinite', 'peek-aboo': 'peekAboo 3s ease-in-out infinite', 'blob': 'blob 7s infinite' },
+                    keyframes: { scrollUp: { '0%': { transform: 'translateY(0)' }, '100%': { transform: 'translateY(-50%)' } }, scrollDown: { '0%': { transform: 'translateY(-50%)' }, '100%': { transform: 'translateY(0)' } }, float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } }, climbSide: { '0%': { transform: 'translateY(20px) rotate(-10deg)' }, '100%': { transform: 'translateY(-20px) rotate(10deg)' } }, crawlTop: { '0%': { transform: 'translateX(-100%) rotate(0deg)' }, '20%': { transform: 'translateX(-100%) rotate(-5deg)' }, '80%': { transform: 'translateX(100%) rotate(5deg)' }, '100%': { transform: 'translateX(100%) rotate(0deg)' } }, swingHang: { '0%, 100%': { transform: 'rotate(15deg)' }, '50%': { transform: 'rotate(-15deg)' } }, peekAboo: { '0%, 80%': { transform: 'translateY(0)' }, '40%, 60%': { transform: 'translateY(-25px)' } }, blob: { '0%': { transform: 'translate(0px, 0px) scale(1)' }, '33%': { transform: 'translate(30px, -50px) scale(1.1)' }, '66%': { transform: 'translate(-20px, 20px) scale(0.9)' }, '100%': { transform: 'translate(0px, 0px) scale(1)' } } }
                 }
             }
         }
     </script>
-
     <style>
         .falling-item { position: fixed; top: -10vh; z-index: 50; pointer-events: none; animation: fall linear forwards; }
         @keyframes fall { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 10% { opacity: 0.8; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
@@ -80,15 +50,6 @@
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .wish-card-animate { animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) backwards; }
     </style>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/"
-  }
-}
-</script>
 </head>
 <body>
     <div id="root"></div>
@@ -116,7 +77,6 @@
                 { src: "CAP_4410.jpg", icon: "fas fa-star", title: "Dreamy", caption: "Cùng mơ về tương lai hạnh phúc.", heightClass: "h-72" }
             ],
             weddingEvents: {
-                // ĐÃ SỬA GIỜ THÀNH 09:00 AM
                 groom: { title: "Lễ Thành Hôn", locationName: "Tư gia Nhà Trai", address: "TDP Cam Giá 4, Phường Gia Sàng, Thái Nguyên", time: "09:00 AM", date: "Chủ Nhật, 21 Tháng 12, 2025", mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d575.5387117163806!2d105.87879367518552!3d21.56626051163245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab5904b9edd3%3A0x6c8112f7f200f5c2!2zTmjDoCBWxrDhu51uIFTDuW5nIE5pbmg!5e1!3m2!1svi!2s!4v1764643690863!5m2!1svi!2s" },
                 bride: { title: "Lễ Vu Quy", locationName: "Tư gia Nhà Gái", address: "Xóm Làng Mon, Xã Tân Cương, Thái Nguyên", time: "09:00 AM", date: "Chủ Nhật, 21 Tháng 12, 2025", mapUrl: "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d1151.2273995989844!2d105.8217652696278!3d21.547365246145525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDMyJzUwLjUiTiAxMDXCsDQ5JzIwLjciRQ!5e1!3m2!1svi!2s!4v1764643768664!5m2!1svi!2s" }
             },
@@ -138,8 +98,6 @@
             const eventTitle = isBrideSide ? "Đến dự lễ Vu Quy của" : "Đến dự lễ Thành Hôn của";
             const firstName = isBrideSide ? "Ngọc Ánh" : "Mạnh Dũng";
             const secondName = isBrideSide ? "Mạnh Dũng" : "Ngọc Ánh";
-            
-            // --- ĐÃ SỬA GIỜ HIỂN THỊ CỐ ĐỊNH LÀ 09h00 ---
             const eventTime = "09h00";
 
             return (
