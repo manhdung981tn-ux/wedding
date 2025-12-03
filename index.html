@@ -350,10 +350,22 @@
         };
 
         // 2. MusicPlayer
-        const MusicPlayer = () => {
+        const MusicPlayer = ({ musicUrl }) => {
           const [isPlaying, setIsPlaying] = useState(false);
           const audioRef = useRef(null);
           const [hasInteracted, setHasInteracted] = useState(false);
+
+          // Update audio source when prop changes
+          useEffect(() => {
+            if (audioRef.current && musicUrl) {
+                const wasPlaying = !audioRef.current.paused;
+                audioRef.current.src = musicUrl;
+                audioRef.current.load(); // Important to reload source
+                if (wasPlaying || isPlaying) {
+                    audioRef.current.play().catch(e => console.log("Autoplay blocked on change"));
+                }
+            }
+          }, [musicUrl]);
 
           useEffect(() => {
             const playPromise = audioRef.current?.play();
@@ -401,15 +413,14 @@
                     <i className={`fas ${isPlaying ? 'fa-pause' : 'fa-music'}`}></i>
                 </button>
                 <audio ref={audioRef} loop>
-                    {/* FILE NHẠC: Hãy để file nhạc tên là 'wedding-song.mp3' vào cùng thư mục với file index.html */}
-                    <source src="./wedding-song.mp3" type="audio/mpeg" />
+                    <source src={musicUrl || "./wedding-song.mp3"} type="audio/mpeg" />
                 </audio>
             </div>
           );
         };
 
         // 3. Hero
-        const Hero = () => {
+        const Hero = ({ side, guestName }) => {
           const [timeLeft, setTimeLeft] = useState({
             days: 0,
             hours: 0,
@@ -438,6 +449,8 @@
           }, []);
 
           const { col1, col2, col3, col4, col5 } = weddingData.heroImages;
+          const isBrideSide = side === 'bride';
+          const eventTitle = isBrideSide ? "Đến dự lễ Vu Quy của" : "Đến dự lễ Thành Hôn của";
 
           return (
             <section className="relative h-screen overflow-hidden bg-rose-50 flex items-center justify-center">
@@ -445,27 +458,27 @@
               <div className="absolute inset-0 grid grid-cols-3 md:grid-cols-5 gap-2 px-1 rotate-0 md:-rotate-2 scale-110 opacity-50 pointer-events-none select-none">
                  <div className="flex flex-col gap-2 animate-scroll-up">
                     {[...col1, ...col1].map((src, i) => (
-                        <img key={`c1-${i}`} src={src} className="rounded w-full h-48 object-cover odd:h-64 even:h-56" alt="" />
+                        <img key={`c1-${i}`} src={src} className="rounded w-full h-48 object-cover odd:h-64 even:h-56" alt="" decoding="async" />
                     ))}
                  </div>
                  <div className="flex flex-col gap-2 animate-scroll-down mt-[-100px]">
                     {[...col2, ...col2].map((src, i) => (
-                        <img key={`c2-${i}`} src={src} className="rounded w-full h-80 object-cover odd:h-56 even:h-64" alt="" />
+                        <img key={`c2-${i}`} src={src} className="rounded w-full h-80 object-cover odd:h-56 even:h-64" alt="" decoding="async" />
                     ))}
                  </div>
                  <div className="flex flex-col gap-2 animate-scroll-up">
                     {[...col3, ...col3].map((src, i) => (
-                        <img key={`c3-${i}`} src={src} className="rounded w-full h-64 object-cover odd:h-48 even:h-80" alt="" />
+                        <img key={`c3-${i}`} src={src} className="rounded w-full h-64 object-cover odd:h-48 even:h-80" alt="" decoding="async" />
                     ))}
                  </div>
                  <div className="hidden md:flex flex-col gap-2 animate-scroll-down">
                     {[...col4, ...col4].map((src, i) => (
-                        <img key={`c4-${i}`} src={src} className="rounded w-full h-72 object-cover odd:h-56" alt="" />
+                        <img key={`c4-${i}`} src={src} className="rounded w-full h-72 object-cover odd:h-56" alt="" decoding="async" />
                     ))}
                  </div>
                  <div className="hidden lg:flex flex-col gap-2 animate-scroll-up mt-[-150px]">
                      {[...col5, ...col5].map((src, i) => (
-                        <img key={`c5-${i}`} src={src} className="rounded w-full h-64 object-cover odd:h-80" alt="" />
+                        <img key={`c5-${i}`} src={src} className="rounded w-full h-64 object-cover odd:h-80" alt="" decoding="async" />
                     ))}
                  </div>
               </div>
@@ -479,8 +492,10 @@
                 </div>
                 
                 <div className="mb-6">
-                    <p className="font-serif italic text-lg md:text-xl text-gray-500 mb-2">Trân trọng kính mời quý khách</p>
-                    <p className="font-sans uppercase tracking-[0.2em] text-sm md:text-base text-deep-rose font-bold">Đến dự lễ thành hôn của</p>
+                    <p className="font-serif italic text-lg md:text-xl text-gray-500 mb-2">
+                        {guestName ? `Trân trọng kính mời ${guestName}` : "Trân trọng kính mời quý khách"}
+                    </p>
+                    <p className="font-sans uppercase tracking-[0.2em] text-sm md:text-base text-deep-rose font-bold">{eventTitle}</p>
                 </div>
                 
                 <h1 className="font-script text-6xl md:text-8xl lg:text-9xl mb-4 leading-none text-deep-rose drop-shadow-sm">
@@ -1188,7 +1203,160 @@
           );
         };
 
-        // 10. Footer
+        // 10. InvitationControl (Admin)
+        const InvitationControl = ({ onMusicChange }) => {
+          const [baseUrl, setBaseUrl] = useState('');
+          const [guestName, setGuestName] = useState('');
+          const [selectedMusic, setSelectedMusic] = useState('');
+          const [customMusicUrl, setCustomMusicUrl] = useState('');
+          const [copied, setCopied] = useState(null);
+
+          useEffect(() => {
+            const url = window.location.origin + window.location.pathname;
+            setBaseUrl(url);
+          }, []);
+
+          const musicOptions = [
+            { label: "Mặc định (wedding-song.mp3)", value: "" },
+            { label: "Beautiful In White", value: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" }, // Demo link
+            { label: "Perfect - Ed Sheeran", value: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" }, // Demo link
+            { label: "Custom URL (Nhập bên dưới)", value: "custom" }
+          ];
+
+          const handleFileChange = (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const objectUrl = URL.createObjectURL(file);
+                onMusicChange(objectUrl); // Preview locally
+                alert("Đã tải nhạc! Lưu ý: File này chỉ phát trên máy của bạn để nghe thử. Khi gửi link cho khách, hãy dùng 'Link nhạc Online'.");
+            }
+          };
+
+          const handleApplyMusic = () => {
+            const url = selectedMusic === 'custom' ? customMusicUrl : selectedMusic;
+            onMusicChange(url);
+          };
+
+          const copyLink = (type) => {
+            let link = `${baseUrl}?side=${type}`;
+            if (guestName.trim()) {
+                link += `&name=${encodeURIComponent(guestName.trim())}`;
+            }
+            
+            const musicParam = selectedMusic === 'custom' ? customMusicUrl : selectedMusic;
+            if (musicParam) {
+                link += `&song=${encodeURIComponent(musicParam)}`;
+            }
+            
+            navigator.clipboard.writeText(link).then(() => {
+              setCopied(type);
+              setTimeout(() => setCopied(null), 2000);
+            }).catch(err => console.error('Failed to copy', err));
+          };
+
+          return (
+            <div className="bg-gray-100 py-8 px-4 border-t border-gray-200">
+              <div className="max-w-2xl mx-auto text-center">
+                <p className="text-xs uppercase tracking-widest text-gray-500 mb-6 font-bold">
+                  <i className="fas fa-tools mr-2"></i> Công Cụ Chia Sẻ Thiệp (Dành cho CDCR)
+                </p>
+                
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mb-6 space-y-6">
+                    {/* Guest Name Input */}
+                    <div>
+                        <label className="block text-left text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 ml-1">
+                            1. Nhập tên khách mời (Tùy chọn)
+                        </label>
+                        <input 
+                            type="text" 
+                            value={guestName}
+                            onChange={(e) => setGuestName(e.target.value)}
+                            placeholder="VD: Bạn Nam, Cô Tư, Gia đình bác Hùng..."
+                            className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 rounded focus:outline-none focus:border-deep-rose transition text-gray-700"
+                        />
+                    </div>
+
+                    {/* Music Settings */}
+                    <div>
+                        <label className="block text-left text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 ml-1">
+                            2. Cài đặt Nhạc nền (Tùy chọn)
+                        </label>
+                        <div className="flex flex-col gap-3">
+                            <select 
+                                value={selectedMusic}
+                                onChange={(e) => setSelectedMusic(e.target.value)}
+                                className="w-full bg-gray-50 border border-gray-200 p-3 rounded focus:outline-none focus:border-deep-rose transition text-gray-700 text-sm"
+                            >
+                                {musicOptions.map((opt, i) => (
+                                    <option key={i} value={opt.value}>{opt.label}</option>
+                                ))}
+                            </select>
+
+                            {selectedMusic === 'custom' && (
+                                <input 
+                                    type="text" 
+                                    value={customMusicUrl}
+                                    onChange={(e) => setCustomMusicUrl(e.target.value)}
+                                    placeholder="Dán link nhạc MP3 (URL) vào đây..."
+                                    className="w-full bg-gray-50 border-b-2 border-gray-200 p-3 rounded focus:outline-none focus:border-deep-rose transition text-gray-700 text-sm"
+                                />
+                            )}
+
+                            <div className="flex gap-2">
+                                <button onClick={handleApplyMusic} className="text-xs bg-rose-100 text-deep-rose px-3 py-2 rounded hover:bg-rose-200 transition font-bold">
+                                    <i className="fas fa-play mr-1"></i> Áp dụng / Nghe thử
+                                </button>
+                                <label className="text-xs bg-gray-200 text-gray-600 px-3 py-2 rounded hover:bg-gray-300 transition font-bold cursor-pointer">
+                                    <i className="fas fa-upload mr-1"></i> Tải file từ máy (Nghe thử)
+                                    <input type="file" accept="audio/*" onChange={handleFileChange} className="hidden" />
+                                </label>
+                            </div>
+                            <p className="text-[10px] text-left text-gray-400 italic">
+                                * Lưu ý: "Tải file từ máy" chỉ để bạn nghe thử. Để gửi link kèm nhạc cho khách, vui lòng chọn nhạc có sẵn hoặc dán Link URL.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Groom Link Button */}
+                  <button 
+                    onClick={() => copyLink('groom')}
+                    className="flex items-center justify-center gap-3 bg-white border-2 border-blue-100 p-4 rounded-xl shadow-sm hover:border-blue-300 hover:shadow-md transition active:scale-95 group"
+                  >
+                    <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-100 transition">
+                      <i className="fas fa-user-tie text-xl"></i>
+                    </div>
+                    <div className="text-left">
+                      <span className="block text-sm text-gray-600 font-bold uppercase">Link Nhà Trai</span>
+                      <span className="block text-xs text-blue-500 font-medium mt-1">
+                        {copied === 'groom' ? 'Đã sao chép! ✅' : 'Sao chép link'}
+                      </span>
+                    </div>
+                  </button>
+
+                  {/* Bride Link Button */}
+                  <button 
+                    onClick={() => copyLink('bride')}
+                    className="flex items-center justify-center gap-3 bg-white border-2 border-pink-100 p-4 rounded-xl shadow-sm hover:border-pink-300 hover:shadow-md transition active:scale-95 group"
+                  >
+                     <div className="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center text-pink-600 group-hover:bg-pink-100 transition">
+                      <i className="fas fa-female text-xl"></i>
+                    </div>
+                    <div className="text-left">
+                      <span className="block text-sm text-gray-600 font-bold uppercase">Link Nhà Gái</span>
+                       <span className="block text-xs text-pink-500 font-medium mt-1">
+                        {copied === 'bride' ? 'Đã sao chép! ✅' : 'Sao chép link'}
+                      </span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        };
+
+        // 11. Footer
         const Footer = () => {
           return (
             <footer className="bg-deep-rose text-white py-10 text-center font-sans text-xs tracking-widest relative z-10">
@@ -1205,27 +1373,46 @@
         // --- APP COMPONENT ---
         const App = () => {
           const [side, setSide] = useState(null);
+          const [guestName, setGuestName] = useState(null);
+          const [musicUrl, setMusicUrl] = useState('');
 
           useEffect(() => {
             const params = new URLSearchParams(window.location.search);
+            
             const sideParam = params.get('side');
             if (sideParam === 'groom' || sideParam === 'bride') {
               setSide(sideParam);
             }
+
+            const nameParam = params.get('name');
+            if (nameParam) {
+                setGuestName(nameParam);
+            }
+
+            const songParam = params.get('song');
+            if (songParam) {
+                setMusicUrl(songParam);
+            }
           }, []);
+
+          // Function to update music from the Admin panel
+          const handleMusicChange = (url) => {
+              setMusicUrl(url);
+          };
 
           return (
             <div className="bg-soft-pink text-gray-800 font-serif antialiased overflow-x-hidden relative selection:bg-rose-200">
-              <MusicPlayer />
+              <MusicPlayer musicUrl={musicUrl} />
               <FallingEffect />
               
-              <Hero />
+              <Hero side={side} guestName={guestName} />
               <WeddingEvents side={side} />
               <LoveStory />
               <Gallery />
               <LuckyDraw />
               <BankQR side={side} />
               <Wishes side={side} />
+              <InvitationControl onMusicChange={handleMusicChange} />
               <Footer />
             </div>
           );
